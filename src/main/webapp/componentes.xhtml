@@ -10,38 +10,58 @@
     
     <h:body>
         <h:form>
-            <!-- Componente 1: DataTable -->
-            <p:dataTable value="#{null}" var="item" style="margin: 20px;">
+            <!-- Componente 1: DataTable con datos reales -->
+            <p:dataTable value="#{estadisticasBean.datos}" var="item" style="margin: 20px;">
                 <p:column headerText="ID">
-                    <h:outputText value="1" />
+                    <h:outputText value="#{item.id}" />
                 </p:column>
                 <p:column headerText="Nombre">
-                    <h:outputText value="Ejemplo" />
+                    <h:outputText value="#{item.nombre}" />
                 </p:column>
-                <p:column headerText="Descripción">
-                    <h:outputText value="Descripción de ejemplo" />
+                <p:column headerText="Valor">
+                    <h:outputText value="#{item.valor}" />
                 </p:column>
             </p:dataTable>
 
-            <!-- Componente 2: Panel -->
+            <!-- Gráficas -->
+            <p:panel header="Gráficas Estadísticas" style="margin: 20px;">
+                <div class="ui-g">
+                    <!-- Gráfica de Pie -->
+                    <div class="ui-g-12 ui-md-4">
+                        <p:chart type="pie" model="#{estadisticasBean.pieModel}" style="width: 100%; height: 300px;" />
+                    </div>
+                    
+                    <!-- Gráfica de Barras -->
+                    <div class="ui-g-12 ui-md-4">
+                        <p:chart type="bar" model="#{estadisticasBean.barModel}" style="width: 100%; height: 300px;" />
+                    </div>
+                    
+                    <!-- Gráfica de Línea -->
+                    <div class="ui-g-12 ui-md-4">
+                        <p:chart type="line" model="#{estadisticasBean.lineModel}" style="width: 100%; height: 300px;" />
+                    </div>
+                </div>
+            </p:panel>
+
+            <!-- Panel de Información -->
             <p:panel header="Panel de Información" style="margin: 20px;">
                 <h:panelGrid columns="2" cellpadding="5">
                     <p:outputLabel value="Nombre:" />
                     <p:inputText />
                     
-                    <p:outputLabel value="Email:" />
-                    <p:inputText />
+                    <p:outputLabel value="Valor:" />
+                    <p:inputNumber />
                     
-                    <p:outputLabel value="Mensaje:" />
+                    <p:outputLabel value="Observaciones:" />
                     <p:inputTextarea rows="3" />
                 </h:panelGrid>
             </p:panel>
 
-            <!-- Componente 3: Botones con íconos -->
+            <!-- Botones -->
             <p:toolbar style="margin: 20px;">
                 <f:facet name="left">
                     <p:commandButton value="Nuevo" icon="pi pi-plus" styleClass="ui-button-success" style="margin-right: .5rem" />
-                    <p:commandButton value="Editar" icon="pi pi-pencil" styleClass="ui-button-warning" style="margin-right: .5rem" />
+                    <p:commandButton value="Actualizar" icon="pi pi-refresh" styleClass="ui-button-primary" style="margin-right: .5rem" />
                     <p:commandButton value="Eliminar" icon="pi pi-trash" styleClass="ui-button-danger" />
                 </f:facet>
             </p:toolbar>
